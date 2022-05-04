@@ -36,7 +36,17 @@ public class CartService {
         getCurrentCart(cartId).add(p);
     }
 
+    public void mergeCart(String username, String guestCartId) {
+        Cart guestCart = getCurrentCart(guestCartId);
+        if (guestCart.getItems().isEmpty()) return;
+        Cart userCart = getCurrentCart(username);
+        guestCart.getItems().forEach(userCart::addCartItem);
+        guestCart.clear();
+    }
+
     public void clearCart(String cartId) {
         getCurrentCart(cartId).clear();
     }
+
+
 }

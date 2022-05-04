@@ -3,8 +3,10 @@ package ru.geekbrains.march.market.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.march.market.api.OrderDetailsDto;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.core.converters.OrderConverter;
+import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.services.OrderService;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewOrder(@RequestHeader String username) {
-        orderService.createNewOrder(username);
+    public void createNewOrder(@RequestHeader String username, @RequestBody OrderDetailsDto orderDetailsDto) {
+        orderService.createNewOrder(username, orderDetailsDto);
     }
 }
