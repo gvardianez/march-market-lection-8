@@ -7,8 +7,9 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     };
 
     $scope.createOrder = function () {
-        $http.post('http://localhost:5555/core/api/v1/orders')
+        $http.post('http://localhost:5555/core/api/v1/orders', $scope.orderDetails)
             .then(function (response) {
+                $scope.orderDetails = null;
                 $scope.loadCart();
             });
     }
