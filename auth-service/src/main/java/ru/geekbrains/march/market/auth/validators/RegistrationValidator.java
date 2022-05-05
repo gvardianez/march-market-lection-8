@@ -12,8 +12,8 @@ public class RegistrationValidator {
 
     public void validate(RegisterUserDto registerUserDto) {
         List<String> errors = new ArrayList<>();
-        if (registerUserDto.getUsername() == null || registerUserDto.getUsername().isBlank()) { //без проверки на null при первой загрузке странице на фронте,
-            errors.add("Поле имя пользователя не должно быть пустым");                            // если оставить пустыми поля и передать форму, ловится NPE
+        if (registerUserDto.getUsername() == null || registerUserDto.getUsername().isBlank()) { // здесь разобрался, почему периодически ловится NPE,
+            errors.add("Поле имя пользователя не должно быть пустым");                          // а иногда хватает проверки isBlank.
         }
         if (registerUserDto.getEmail() == null || registerUserDto.getEmail().isBlank()) {
             errors.add("Поле email должно быть заполнено");
