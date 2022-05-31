@@ -2,12 +2,10 @@ package ru.geekbrains.march.market.cart.utils;
 
 import lombok.Data;
 import ru.geekbrains.march.market.api.ProductDto;
-import ru.geekbrains.march.market.cart.exceptions.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Data
 public class Cart {
@@ -32,6 +30,11 @@ public class Cart {
         recalculate();
     }
 
+    public void merge(Cart guestCart) {
+        guestCart.items.forEach(this::addCartItem);
+        guestCart.clear();
+    }
+
     public void addCartItem(CartItem cartItem) {
         for (CartItem item : items) {
             if (item.getProductId().equals(cartItem.getProductId())) {
@@ -42,6 +45,12 @@ public class Cart {
         }
         items.add(cartItem);
         recalculate();
+    }
+
+    public void remove(Long productId) {
+        if (items.removeIf(p -> p.getProductId().equals(productId))) {
+            recalculate();
+        }
     }
 
     public void clear() {
