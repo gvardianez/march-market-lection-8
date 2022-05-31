@@ -39,10 +39,16 @@ public class CartController {
         cartService.clearCart(currentCartId);
     }
 
+    @GetMapping("/{guestCartId}/merge")
+    public void mergeGuestAndUserCart(@RequestHeader String username, @PathVariable String guestCartId) {
+        cartService.mergeCart(username, guestCartId);
+    }
+
     private String selectCartId(String username, String guestCartId) {
         if (username != null) {
             return username;
         }
         return guestCartId;
     }
+
 }
