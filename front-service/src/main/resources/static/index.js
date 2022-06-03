@@ -10,6 +10,10 @@
                 templateUrl: 'welcome/welcome.html',
                 controller: 'welcomeController'
             })
+            .when('/registration', {
+                templateUrl: 'registration/registration.html',
+                controller: 'registerController'
+            })
             .when('/store', {
                 templateUrl: 'store/store.html',
                 controller: 'storeController'
@@ -65,6 +69,8 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+
+                    $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/merge')
 
                     $location.path('/');
                 }

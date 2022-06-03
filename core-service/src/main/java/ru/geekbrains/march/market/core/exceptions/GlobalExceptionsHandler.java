@@ -16,4 +16,9 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<AppError> handleIllegalStateException(IllegalStateException e) {
         return new ResponseEntity<>(new AppError("ILLEGAL_DATA_STATE", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<AppError> handleFieldValidationException(FieldValidationException e) {
+        return new ResponseEntity<>(new AppError("INVALID_FIELD_VALUE", e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

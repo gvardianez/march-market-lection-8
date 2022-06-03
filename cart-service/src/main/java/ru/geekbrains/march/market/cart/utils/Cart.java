@@ -2,6 +2,7 @@ package ru.geekbrains.march.market.cart.utils;
 
 import lombok.Data;
 import ru.geekbrains.march.market.api.ProductDto;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,29 @@ public class Cart {
         CartItem cartItem = new CartItem(p.getId(), p.getTitle(), 1, p.getPrice(), p.getPrice());
         items.add(cartItem);
         recalculate();
+    }
+
+    public void merge(Cart guestCart) {
+        guestCart.items.forEach(this::addCartItem);
+        guestCart.clear();
+    }
+
+    public void addCartItem(CartItem cartItem) {
+        for (CartItem item : items) {
+            if (item.getProductId().equals(cartItem.getProductId())) {
+                item.setQuantity(item.getQuantity() + cartItem.getQuantity());
+                recalculate();
+                return;
+            }
+        }
+        items.add(cartItem);
+        recalculate();
+    }
+
+    public void remove(Long productId) {
+        if (items.removeIf(p -> p.getProductId().equals(productId))) {
+            recalculate();
+        }
     }
 
     public void clear() {
