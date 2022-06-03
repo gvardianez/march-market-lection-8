@@ -1,7 +1,14 @@
 package ru.geekbrains.march.market.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель доп. информации о заказе")
 public class OrderDetailsDto {
+
+    @Schema(description = "Адрес заказа", required = true, example = "Tula, 2-45")
     private String address;
+
+    @Schema(description = "Телефон заказчика", required = true, example = "561461263")
     private String phone;
 
     public String getAddress() {
